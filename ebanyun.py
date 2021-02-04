@@ -132,10 +132,26 @@ def getimagesthedouji(pageUrl):
 		headers["referer"] = each_page_url
 		response = requests.get(each_page_url, headers=headers)
 		print(response.text)
-
 def webchrome():
 	drive = webdriver.Chrome()
-	drive.get("http://mikupi.shenzhuo.vip:11569")
-		
+	drive.get("http://192.168.123.201:8084")
+	drive.minimize_window()
+	drive.find_element_by_id("username").send_keys("")
+	drive.find_element_by_id("password").send_keys("")
+	drive.find_elements_by_class_name("btn.btn-default")[0].click()
+	drive.find_element_by_name("btn-upload").send_keys(os.getcwd() + "\\" + random_data_dict["漫画名"] + ".cbz")
+	#drive.find_elements_by_class_name("btn.btn-default.btn-file")[0].send_keys()
+	time.sleep(10)
+	drive.find_elements_by_id("submit")[0].click()
+	time.sleep(5)
 
+def one_click():		
+	read_db()
+	mk_Work_dir()
+	get_comic_image()
+	compress_dir()
+	rename_zip_cbz()
+
+
+one_click()
 webchrome()
